@@ -1,2 +1,6 @@
 FROM hashicorp/terraform
 
+RUN wget -q -O /tmp/bw.zip   https://github.com/bitwarden/cli/releases/download/v1.22.1/bw-linux-1.22.1.zip \
+    && unzip /tmp/bw.zip \
+    && unzip -q /tmp/bw.zip -d /usr/local/bin \
+    && chmod +x /usr/local/bin/bw
