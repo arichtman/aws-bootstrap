@@ -1,6 +1,19 @@
-FROM hashicorp/terraform
 
-RUN wget -q -O /tmp/bw.zip   https://github.com/bitwarden/cli/releases/download/v1.22.1/bw-linux-1.22.1.zip \
-    && unzip /tmp/bw.zip \
-    && unzip -q /tmp/bw.zip -d /usr/local/bin \
-    && chmod +x /usr/local/bin/bw
+FROM rendanic/terratools:1.2.1
+
+COPY pyproject.toml .
+
+RUN dnf install -y tar \
+    && pip3 install awsume && awsume-configure --shell bash --alias-file ~/.bashrc --autocomplete-file ~/.bashrc \
+    && curl -sSL https://install.python-poetry.org | python3 - \
+    && echo 'export PATH="/root/.local/bin:$PATH"' >> ~/.bashrc \
+    && export PATH="/root/.local/bin:$PATH" \
+    && poetry config virtualenvs.create false \
+    && poetry install --no-interaction \
+    && curl -L https://raw.githubusercontent.com/warrensbox/hubapp/release/install.sh | bash - \
+# This will fail on a rename
+    && hubapp upgrade infracost/infracost \
+# No way to specify version on Hubapp install but we know it'll only create one directory
+    && ln -s ~/.infracost/files_*/infracost-linux-amd64 ~/.local/bin/infracost \
+    && hubapp upgrade minamijoyo/tfupdate \
+    && hubapp upgrade terraform-docs/terraform-docs

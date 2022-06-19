@@ -1,16 +1,22 @@
-
 {
-	"name": "Devcontainer Terraform",
-	
-	// Provide the dev container with a Dockerfile that it can use to build an image and run the container.
-	"dockerFile": "Containerfile",
-	"context": "..",
-	"mounts": [
-		"source=${env:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached"
-	],
-	// Required VSC code extensions that you want to automatically install for the developers to use.
-	"extensions": [
-		"hashicorp.terraform",
-		"ms-azuretools.vscode-docker",
-	]
+  "context": "..",
+  "dockerFile": "Containerfile",
+  "extensions": [
+    "ms-azuretools.vscode-docker",
+    "4ops.terraform"
+  ],
+  "mounts": [
+    "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config,target=/root/.config,type=bind,consistency=cached"
+  ],
+  "name": "Devcontainer Terraform",
+  "onCreateCommand": [
+    "pre-commit",
+    "autoupdate"
+  ],
+  "updateContentCommand": [
+    "pre-commit",
+    "install",
+    "--install-hooks"
+  ]
 }

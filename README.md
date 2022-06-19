@@ -1,7 +1,24 @@
+
 # aws-bootstrap
 
 Bootstrap layer Terraform module
 
-podman run --rm -it -v $HOME/.aws:/conf/.aws --entrypoint /bin/ash cloudposse/geodesic:latest-alpine
+```Bash
+aws configure --profile root
 
-podman run --rm -it -v $HOME/.aws:/root/.aws amazon/aws-cli sts get-caller-identity
+aws configure sso
+
+# I expect
+# prod-pu = Production Power User
+# np-pu = Nonprod Power User
+# root-adm = Root AWS account IAM admin account
+# root = Root AWS account root account
+
+# Bootstrap remote state bucket and DynamoDB
+cd bootstrap
+terragrunt apply
+
+cd ..
+terragrunt run-all apply
+
+```
