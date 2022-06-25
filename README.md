@@ -1,14 +1,14 @@
 
 # aws-bootstrap
 
-Bootstrap layer Terraform module
+WIP of Terraformed AWS environments in use for personal projects
 
 ```Bash
 aws configure --profile root
 
 aws configure sso
 
-# I expect
+# Profile setup
 # prod-pu = Production Power User
 # np-pu = Nonprod Power User
 # root-adm = Root AWS account IAM admin account

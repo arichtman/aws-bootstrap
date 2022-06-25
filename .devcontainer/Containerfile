@@ -15,5 +15,7 @@ RUN dnf install -y tar \
     && hubapp upgrade infracost/infracost \
 # No way to specify version on Hubapp install but we know it'll only create one directory
     && ln -s ~/.infracost/files_*/infracost-linux-amd64 ~/.local/bin/infracost \
+    && infracost completion --shell bash >> ~/.profile \
     && hubapp upgrade minamijoyo/tfupdate \
-    && hubapp upgrade terraform-docs/terraform-docs
+    && hubapp upgrade terraform-docs/terraform-docs \
+    && terraform-docs completion bash >> ~/.profile

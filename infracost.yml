@@ -1,0 +1,15 @@
+version: 0.1
+
+projects:
+  - path: bootstrap
+    env:
+      AWS_PROFILE: root
+  - path: root
+    env:
+      AWS_PROFILE: root
+  - path: nonprod
+    env:
+      AWS_PROFILE: np-pu
+  - path: prod
+    env:
+      AWS_PROFILE: prod-pu
