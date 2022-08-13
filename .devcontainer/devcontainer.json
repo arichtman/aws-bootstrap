@@ -3,7 +3,7 @@
   "dockerFile": "Containerfile",
   "extensions": [
     "ms-azuretools.vscode-docker",
-    "4ops.terraform"
+    "hashicorp.terraform"
   ],
   "mounts": [
     "source=${localEnv:HOME}/.aws,target=/root/.aws,type=bind,consistency=cached",

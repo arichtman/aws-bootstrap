@@ -1,7 +1,7 @@
 
 # aws-bootstrap
 
-WIP of Terraformed AWS environments in use for personal projects
+WIP of Terraformed AWS environments in use for personal projects.
 
 ```Bash
 aws configure --profile root
@@ -15,10 +15,8 @@ aws configure sso
 # root = Root AWS account root account
 
 # Bootstrap remote state bucket and DynamoDB
+aws sso login --profile root
 cd bootstrap
 terragrunt apply
-
-cd ..
-terragrunt run-all apply
 
 ```
