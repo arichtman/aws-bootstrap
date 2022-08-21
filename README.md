@@ -19,4 +19,8 @@ aws sso login --profile root
 cd bootstrap
 terragrunt apply
 
+# having some trouble so awsume prod-pu doesn't work atm
+export AWS_PROFILE=prod-pu
+aws sso login # will open browser
+
 ```

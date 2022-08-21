@@ -9,10 +9,24 @@ resource "aws_route53_record" "richtman_com_au_nameservers" {
   type    = "NS"
   ttl     = 172800
   records = [
-    "${aws_route53_zone.richtman_com_au.name_servers[0]}.",
-    "${aws_route53_zone.richtman_com_au.name_servers[1]}.",
-    "${aws_route53_zone.richtman_com_au.name_servers[2]}.",
-    "${aws_route53_zone.richtman_com_au.name_servers[3]}.",
+    "${aws_route53_zone.richtman_com_au.name_servers[0]}",
+    "${aws_route53_zone.richtman_com_au.name_servers[1]}",
+    "${aws_route53_zone.richtman_com_au.name_servers[2]}",
+    "${aws_route53_zone.richtman_com_au.name_servers[3]}",
+  ]
+}
+
+# Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
+resource "aws_route53_record" "blog_richtman_com_au_nameservers" {
+  zone_id = aws_route53_zone.richtman_com_au.zone_id
+  name    = "blog.richtman.com.au"
+  type    = "NS"
+  ttl     = 172800
+  records = [
+    "dns1.p01.nsone.net",
+    "dns2.p01.nsone.net",
+    "dns3.p01.nsone.net",
+    "dns4.p01.nsone.net",
   ]
 }
 

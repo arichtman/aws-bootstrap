@@ -1,5 +1,5 @@
 
-FROM rendanic/terratools:1.2.1
+FROM rendanic/terratools:latest
 
 COPY pyproject.toml .
 
