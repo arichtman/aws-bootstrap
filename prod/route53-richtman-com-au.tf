@@ -17,11 +17,11 @@ resource "aws_route53_record" "richtman_com_au_nameservers" {
 }
 
 # Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
-resource "aws_route53_record" "blog_richtman_com_au_nameservers" {
+resource "aws_route53_record" "www_richtman_com_au_nameservers" {
   zone_id = aws_route53_zone.richtman_com_au.zone_id
-  name    = "blog.richtman.com.au"
+  name    = "www.richtman.com.au"
   type    = "NS"
-  ttl     = 172800
+  ttl     = 300
   records = [
     "dns1.p01.nsone.net",
     "dns2.p01.nsone.net",
