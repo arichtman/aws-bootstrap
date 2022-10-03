@@ -102,23 +102,3 @@ resource "aws_route53_record" "richtman_com_au_protonmail3_domainkey_CNAME" {
     "protonmail3.domainkey.d755ltlacr25leectkiqddnrkbzu4o547ig5obzfjrcbe6r3wlu2a.domains.proton.ch.",
   ]
 }
-
-resource "aws_route53_record" "richtman_com_au_foxops_CNAME" {
-  zone_id = aws_route53_zone.richtman_com_au.zone_id
-  name    = "foxops.richtman.com.au."
-  type    = "CNAME"
-  ttl     = 3600
-  records = [
-    "arichtman.github.io.richtman.com.au",
-  ]
-}
-
-resource "aws_route53_record" "richtman_com_au_spf_TXT" {
-  zone_id = aws_route53_zone.richtman_com_au.zone_id
-  name    = "spf.richtman.com.au."
-  type    = "TXT"
-  ttl     = 3600
-  records = [
-    "v=spf1 include:_spf.protonmail.ch mx ~all",
-  ]
-}
