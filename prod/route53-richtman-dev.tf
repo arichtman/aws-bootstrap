@@ -35,13 +35,3 @@ resource "aws_route53_record" "richtman_dev_TXT" {
     "v=spf1 -all",
   ]
 }
-
-resource "aws_route53_record" "richtman_dev_spf_TXT" {
-  zone_id = aws_route53_zone.richtman_dev.zone_id
-  name    = "spf.richtman.dev"
-  type    = "TXT"
-  ttl     = 3600
-  records = [
-    "v=spf1 -all",
-  ]
-}

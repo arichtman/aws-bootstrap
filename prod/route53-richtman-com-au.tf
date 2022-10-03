@@ -21,7 +21,7 @@ resource "aws_route53_record" "www_richtman_com_au_nameservers" {
   zone_id = aws_route53_zone.richtman_com_au.zone_id
   name    = "www.richtman.com.au"
   type    = "NS"
-  ttl     = 300
+  ttl     = 172800
   records = [
     "dns1.p01.nsone.net",
     "dns2.p01.nsone.net",
@@ -34,7 +34,7 @@ resource "aws_route53_record" "richtman_com_au_soa" {
   zone_id = aws_route53_zone.richtman_com_au.zone_id
   name    = "${aws_route53_zone.richtman_com_au.name}."
   type    = "SOA"
-  ttl     = 900
+  ttl     = 3600
   records = [
     "${aws_route53_zone.richtman_com_au.name_servers[0]}. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400",
   ]
@@ -67,7 +67,7 @@ resource "aws_route53_record" "richtman_com_au_dmarc_TXT" {
   zone_id = aws_route53_zone.richtman_com_au.zone_id
   name    = "_dmarc.richtman.com.au."
   type    = "TXT"
-  ttl     = 300
+  ttl     = 3600
   records = [
     "v=DMARC1; p=quarantine",
   ]

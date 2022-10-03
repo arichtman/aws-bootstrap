@@ -35,13 +35,3 @@ resource "aws_route53_record" "richtman_id_au_TXT" {
     "v=spf1 -all",
   ]
 }
-
-resource "aws_route53_record" "richtman_id_au_spf_TXT" {
-  zone_id = aws_route53_zone.richtman_id_au.zone_id
-  name    = "spf.richtman.id.au"
-  type    = "TXT"
-  ttl     = 3600
-  records = [
-    "v=spf1 -all",
-  ]
-}
