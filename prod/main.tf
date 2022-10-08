@@ -23,3 +23,33 @@ resource "aws_s3_object" "richtman_com_au_404_html" {
   source = "assets/redirect.html"
   key    = "404.html"
 }
+
+
+module "acm_request_certificate_richtman_com_au" {
+  source = "cloudposse/acm-request-certificate/aws"
+  providers = {
+    aws = aws.us-east-1
+  }
+
+  version     = "v0.17.0"
+  domain_name = "richtman.com.au"
+  # subject_alternative_names         = ["a.example.com", "b.example.com", "*.c.example.com"]
+  zone_id                           = resource.aws_route53_zone.richtman_com_au.zone_id
+  process_domain_validation_options = true
+  ttl                               = "3600"
+}
+
+module "cdn" {
+  source = "cloudposse/cloudfront-s3-cdn/aws"
+  # Cloud Posse recommends pinning every module to a specific version
+  version   = "v0.83.0"
+  namespace = "richtman-com-au"
+  # name              = "app"
+  aliases           = ["assets.cloudposse.com"]
+  dns_alias_enabled = true
+  parent_zone_name  = "cloudposse.com"
+
+  acm_certificate_arn = module.acm_request_certificate_richtman_com_au.arn
+
+  # depends_on = [module.acm_request_certificate_richtman_com_au]
+}
