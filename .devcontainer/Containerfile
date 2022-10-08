@@ -1,15 +1,14 @@
 
 FROM rendanic/terratools:latest
 
-COPY pyproject.toml .
+COPY pyproject.toml poetry.lock ./
 
 RUN dnf install -y tar \
-    && pip3 install awsume && awsume-configure --shell bash --alias-file ~/.bashrc --autocomplete-file ~/.bashrc \
     && curl -sSL https://install.python-poetry.org | python3 - \
     && echo 'export PATH="/root/.local/bin:$PATH"' >> ~/.bashrc \
     && export PATH="/root/.local/bin:$PATH" \
     && poetry config virtualenvs.create false \
-    && poetry install --no-interaction \
+    && poetry install --no-interaction --quiet \
     && curl -L https://raw.githubusercontent.com/warrensbox/hubapp/release/install.sh | bash - \
 # This will fail on a rename
     && hubapp upgrade infracost/infracost \
