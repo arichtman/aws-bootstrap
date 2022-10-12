@@ -13,13 +13,15 @@ module "website_with_cname" {
 }
 
 resource "aws_s3_object" "richtman_com_au_index_html" {
-  bucket = module.website_with_cname.s3_bucket_name
-  source = "assets/redirect.html"
-  key    = "index.html"
+  bucket       = module.website_with_cname.s3_bucket_name
+  source       = "assets/redirect.html"
+  key          = "index.html"
+  content_type = "text/html"
 }
 
 resource "aws_s3_object" "richtman_com_au_404_html" {
-  bucket = module.website_with_cname.s3_bucket_name
-  source = "assets/redirect.html"
-  key    = "404.html"
+  bucket       = module.website_with_cname.s3_bucket_name
+  source       = "assets/redirect.html"
+  key          = "404.html"
+  content_type = "text/html"
 }
