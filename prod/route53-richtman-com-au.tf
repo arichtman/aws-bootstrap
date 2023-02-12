@@ -102,3 +102,13 @@ resource "aws_route53_record" "richtman_com_au_protonmail3_domainkey_CNAME" {
     "protonmail3.domainkey.d755ltlacr25leectkiqddnrkbzu4o547ig5obzfjrcbe6r3wlu2a.domains.proton.ch.",
   ]
 }
+
+resource "aws_route53_record" "food_richtman_com_au_CNAME" {
+  zone_id = aws_route53_zone.richtman_com_au.zone_id
+  name    = "food"
+  type    = "CNAME"
+  ttl     = 3600
+  records = [
+    "tangerine-scone-d5e73d.netlify.app.",
+  ]
+}
