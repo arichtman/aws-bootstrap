@@ -103,12 +103,16 @@ resource "aws_route53_record" "richtman_com_au_protonmail3_domainkey_CNAME" {
   ]
 }
 
-resource "aws_route53_record" "food_richtman_com_au_CNAME" {
+# Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
+resource "aws_route53_record" "food_richtman_com_au_nameservers" {
   zone_id = aws_route53_zone.richtman_com_au.zone_id
-  name    = "food"
-  type    = "CNAME"
-  ttl     = 3600
+  name    = "food.richtman.com.au"
+  type    = "NS"
+  ttl     = 172800
   records = [
-    "tangerine-scone-d5e73d.netlify.app.",
+    "dns1.p01.nsone.net",
+    "dns2.p01.nsone.net",
+    "dns3.p01.nsone.net",
+    "dns4.p01.nsone.net",
   ]
 }
