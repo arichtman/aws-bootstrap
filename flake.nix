@@ -2,19 +2,20 @@
 {
   description = "IaC using Nix";
 
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
   inputs.poetry2nix = {
     url = "github:nix-community/poetry2nix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-
-  outputs = { self, nixpkgs, flake-utils, poetry2nix , ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  inputs.terranix = {
+    url = "github:terranix/terranix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  outputs = { self, nixpkgs, poetry2nix , terranix, ... }:
       let
         pkgs = import nixpkgs {
-          inherit system;
         };
+        system = "x86_64-linux";
         poetryEnv = pkgs.poetry2nix.mkPoetryEnv {
           projectDir = ./.;
         };
@@ -28,7 +29,14 @@
             awscli2
             poetry
           ];
+          shellHook = ''
+            . <(terraform-docs completion bash)
+            pre-commit install --install-hooks
+          '';
         };
-      }
-    );
+        defaultPackage.x86_64-linux = terranix.lib.terranixConfiguration {
+          inherit system;
+          modules = [ ./config.nix ];
+        };
+      };
 }
