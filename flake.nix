@@ -21,10 +21,11 @@
           poetryEnv = pkgs.poetry2nix.mkPoetryEnv {
             projectDir = ./.;
           };
+          envs = import ./environments.nix;
         in
         {
           devShells.default = with pkgs; mkShell {
-            buildInputs = [
+            nativeBuildInputs = [
                 poetryEnv
                 terraform
                 terragrunt
@@ -32,8 +33,8 @@
                 poetry
               ];
             shellHook = ''
-              . <(terraform-docs completion bash)
               pre-commit install --install-hooks
+              echo ${envs.prod.name}
             '';
           };
           defaultPackage = terranix.lib.terranixConfiguration {
