@@ -25,6 +25,8 @@
         pkgs = import nixpkgs {
           inherit system;
         };
+        moduleToUse = import ./module.nix;
+        moduleOutput = moduleToUse { environment = "prod"; } ;
         poetryEnv = pkgs.poetry2nix.mkPoetryEnv {
           projectDir = ./.;
         };
@@ -44,6 +46,7 @@
             shellHook = ''
               pre-commit install --install-hooks
               echo ${envs.prod.name}
+              echo ${moduleOutput.stringOut}
             '';
           };
         defaultPackage = terranix.lib.terranixConfiguration {
