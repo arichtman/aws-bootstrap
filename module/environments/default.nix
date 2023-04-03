@@ -3,6 +3,9 @@
   };
   prod = {
     name = "prod";
-    stages = [ "uat" "prod" ];
+    stages = {
+      "uat" = {};
+      "prod" = {};
+    };
   };
 }
