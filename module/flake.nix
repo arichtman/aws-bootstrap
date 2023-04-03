@@ -18,7 +18,7 @@
     };
     moduleToUse = import ./minimal;
     envs = import ./environments;
-    moduleOutput = moduleToUse.mkDeployment "prod" "uat" "seatmap.net.au";
+    moduleOutput = moduleToUse.mkDeployment envs.prod.name ( builtins.elemAt envs.prod.stages 0) "seatmap.net.au";
   in {
     devShells.default = with pkgs;
       mkShell {
