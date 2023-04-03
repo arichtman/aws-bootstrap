@@ -3,7 +3,7 @@ let
   # TODO: This needs to handle way more character variation on input
   # TODO: This needs to truncate
   # TODO: See about using another approach that doesn't require duplication on the second array
-  slugify = inputString: ( builtins.replaceStrings [ "." "+" ] [ "_" "_" ] inputString );
+  slugify = inputString: ( builtins.replaceStrings [ "." "+" ] (builtins.genList (x: "_") 2) inputString );
   mkRoute53Zone = name:
   let
     slugifiedName = slugify name;
