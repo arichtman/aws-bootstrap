@@ -6,7 +6,7 @@ terraform {
     bucket         = "state-terraform-richtman-au"
     key            = "prod.tfstate"
     dynamodb_table = "state-lock-terraform"
-    profile        = "root"
+    profile        = "root-adm"
     encrypt        = "true"
   }
 }
