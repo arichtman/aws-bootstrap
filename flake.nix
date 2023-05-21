@@ -91,6 +91,8 @@
             terragrunt
             awscli2
             poetry
+            dig
+            infracost
           ];
         };
       }));
