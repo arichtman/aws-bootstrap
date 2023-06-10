@@ -40,10 +40,27 @@ resource "aws_route53_record" "richtman_com_au_soa" {
   ]
 }
 
+resource "aws_route53_record" "richtman_com_au_TXT_keybase" {
+  zone_id = aws_route53_zone.richtman_com_au.zone_id
+  name    = "${aws_route53_zone.richtman_com_au.name}."
+  type    = "TXT"
+  ttl     = 3600
+  records = [
+    "keybase-site-verification=e9jUFGHUN7XqVOGH7CIPMBkk98OXj_egYlj3csYuVJE",
+  ]
+  lifecycle {
+    ignore_changes = [
+      records,
+    ]
+  }
+}
+
 module "richtman_com_au_migadu_domain" {
   source                        = "arichtman/migadu-email-domain/aws"
   route53_zone_name             = aws_route53_zone.richtman_com_au.name
   migadu_domain_verification_id = "6hp6vnj8"
+  merge_apex_text_records = true
+  depends_on = [aws_route53_record.richtman_com_au_TXT_keybase]
 }
 
 # Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
