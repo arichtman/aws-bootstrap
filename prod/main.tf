@@ -10,7 +10,20 @@ module "old_website_with_cname" {
   parent_zone_id     = aws_route53_zone.richtman_com_au.zone_id
   logs_enabled       = false
   versioning_enabled = false
-  redirect_all_requests_to = "www.richtman.au"
+}
+
+resource "aws_s3_object" "richtman_com_au_index_html" {
+  bucket       = module.old_website_with_cname.s3_bucket_name
+  source       = "assets/redirect.html"
+  key          = "index.html"
+  content_type = "text/html"
+}
+
+resource "aws_s3_object" "richtman_com_au_404_html" {
+  bucket       = module.old_website_with_cname.s3_bucket_name
+  source       = "assets/redirect.html"
+  key          = "404.html"
+  content_type = "text/html"
 }
 
 module "website_with_cname" {
