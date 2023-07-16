@@ -63,9 +63,7 @@ resource "aws_route53_record" "food_richtman_au_nameservers" {
 
 resource "aws_route53_record" "richtman_au_TXT_keybase" {
   zone_id = aws_route53_zone.richtman_au.zone_id
-  # TODO: probably revert this, I think AWS doesn't recognise @
-  # name    = "${aws_route53_zone.richtman_au.name}."
-  name = "@"
+  name    = "${aws_route53_zone.richtman_au.name}."
   type    = "TXT"
   ttl     = 3600
   records = [
