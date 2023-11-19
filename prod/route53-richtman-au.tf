@@ -30,8 +30,8 @@ module "richtman_au_migadu_domain" {
   source                        = "arichtman/migadu-email-domain/aws"
   route53_zone_name             = aws_route53_zone.richtman_au.name
   migadu_domain_verification_id = "qexlpkpy"
-  merge_apex_text_records = true
-  depends_on = [aws_route53_record.richtman_au_TXT_keybase]
+  merge_apex_text_records       = true
+  depends_on                    = [aws_route53_record.richtman_au_TXT_keybase]
 }
 
 # Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
@@ -74,4 +74,14 @@ resource "aws_route53_record" "richtman_au_TXT_keybase" {
       records,
     ]
   }
+}
+
+resource "aws_route53_record" "nextcloud_richtman_au_cname" {
+  zone_id = aws_route53_zone.richtman_au.zone_id
+  name    = "nextcloud.${aws_route53_zone.richtman_au.name}."
+  type    = "CNAME"
+  ttl     = 3600
+  records = [
+    "nx43916.your-storageshare.de.",
+  ]
 }
