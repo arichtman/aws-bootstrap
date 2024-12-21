@@ -28,6 +28,7 @@ resource "aws_route53_record" "richtman_au_soa" {
 
 module "richtman_au_migadu_domain" {
   source                        = "arichtman/migadu-email-domain/aws"
+  version                       = ">= 0.3.0"
   route53_zone_name             = aws_route53_zone.richtman_au.name
   migadu_domain_verification_id = "qexlpkpy"
   merge_apex_text_records       = true
@@ -69,11 +70,22 @@ resource "aws_route53_record" "richtman_au_TXT_keybase" {
   records = [
     "keybase-site-verification=50IPtg1CA_Rs-b7u-V1JXLguFPSMaPJIE0VVA-wb1AQ",
   ]
+  # Required as it's an apex record and migadu injects some there
   lifecycle {
     ignore_changes = [
       records,
     ]
   }
+}
+
+resource "aws_route53_record" "ariel_richtman_au_TXT_bluesky" {
+  zone_id = aws_route53_zone.richtman_au.zone_id
+  name    = "_atproto.ariel.${aws_route53_zone.richtman_au.name}."
+  type    = "TXT"
+  ttl     = 3600
+  records = [
+    "did=did:plc:cooifaem6deemdxqivl6uwga",
+  ]
 }
 
 resource "aws_route53_record" "nextcloud_richtman_au_cname" {

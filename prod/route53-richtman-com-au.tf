@@ -28,6 +28,7 @@ resource "aws_route53_record" "richtman_com_au_soa" {
 
 module "richtman_com_au_migadu_domain" {
   source                        = "arichtman/migadu-email-domain/aws"
+  version                       = ">= 0.3.0"
   route53_zone_name             = aws_route53_zone.richtman_com_au.name
   migadu_domain_verification_id = "6hp6vnj8"
 }
