@@ -15,12 +15,12 @@ repos:
     #   verbose: true
 
 - repo:  https://github.com/bridgecrewio/checkov
-  rev: 2.3.281
+  rev: 3.2.343
   hooks:
   - id: checkov
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v5.0.0
   hooks:
   - id: check-added-large-files
   - id: check-yaml
