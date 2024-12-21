@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    poetry2nix.url = "github:arichtman/poetry2nix/rdflib-poetry";
+    poetry2nix.url = "github:nix-community/poetry2nix";
   };
   outputs = {
     self,
@@ -17,10 +17,12 @@
       let
         pkgs = import nixpkgs {
           inherit system;
+          config.allowUnfree = true; # Required for Terraform BSL
+          overlays = [poetry2nix.overlays.default];
         };
-        inherit (poetry2nix.legacyPackages.${system}) mkPoetryEnv ;
-        poetryEnv = mkPoetryEnv {
+        poetryEnv = pkgs.poetry2nix.mkPoetryEnv {
           projectDir = ./.;
+          preferWheels = true;
         };
       in {
         devShells.default = with pkgs;
