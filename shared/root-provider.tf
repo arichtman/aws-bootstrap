@@ -1,5 +1,5 @@
 
 provider "aws" {
   region  = "ap-southeast-2"
-  profile = "root-adm"
+  profile = "root"
 }

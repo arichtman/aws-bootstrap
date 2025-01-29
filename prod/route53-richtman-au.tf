@@ -35,6 +35,16 @@ module "richtman_au_migadu_domain" {
   depends_on                    = [aws_route53_record.richtman_au_TXT_keybase]
 }
 
+# resource "aws_route53_record" "www_richtman_au_cname" {
+#   zone_id = aws_route53_zone.richtman_au.zone_id
+#   name    = "www.${aws_route53_zone.richtman_au.name}."
+#   type    = "CNAME"
+#   ttl     = 3600
+#   records = [
+#     "www.services.richtman.au",
+#   ]
+# }
+
 # Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
 resource "aws_route53_record" "www_richtman_au_nameservers" {
   zone_id = aws_route53_zone.richtman_au.zone_id
@@ -48,6 +58,7 @@ resource "aws_route53_record" "www_richtman_au_nameservers" {
     "dns4.p03.nsone.net",
   ]
 }
+
 # Delegate zone for subdomain to Netlify so they can serve valid TLS certificates for custom domain
 resource "aws_route53_record" "food_richtman_au_nameservers" {
   zone_id = aws_route53_zone.richtman_au.zone_id
