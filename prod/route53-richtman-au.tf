@@ -28,7 +28,7 @@ resource "aws_route53_record" "richtman_au_soa" {
 
 module "richtman_au_migadu_domain" {
   source                        = "arichtman/migadu-email-domain/aws"
-  version                       = ">= 0.3.0"
+  version                       = ">= 0.4.0"
   route53_zone_name             = aws_route53_zone.richtman_au.name
   migadu_domain_verification_id = "qexlpkpy"
   merge_apex_text_records       = true
