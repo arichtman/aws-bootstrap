@@ -8,12 +8,7 @@ resource "aws_route53_record" "richtman_au_nameservers" {
   name    = "${aws_route53_zone.richtman_au.name}."
   type    = "NS"
   ttl     = 172800
-  records = [
-    "${aws_route53_zone.richtman_au.name_servers[0]}",
-    "${aws_route53_zone.richtman_au.name_servers[1]}",
-    "${aws_route53_zone.richtman_au.name_servers[2]}",
-    "${aws_route53_zone.richtman_au.name_servers[3]}",
-  ]
+  records = aws_route53_zone.richtman_au.name_servers
 }
 
 resource "aws_route53_record" "richtman_au_soa" {
@@ -107,4 +102,12 @@ resource "aws_route53_record" "nextcloud_richtman_au_cname" {
   records = [
     "nx43916.your-storageshare.de.",
   ]
+}
+
+resource "aws_route53_record" "systems_richtman_au_ns" {
+  zone_id = aws_route53_zone.richtman_au.zone_id
+  name    = "systems.${aws_route53_zone.richtman_au.name}."
+  type    = "NS"
+  ttl     = 60
+  records = aws_route53_zone.systems_richtman_au.name_servers
 }

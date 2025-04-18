@@ -3,18 +3,12 @@ resource "aws_route53_zone" "systems_richtman_au" {
   name = "systems.richtman.au"
 }
 
-
 resource "aws_route53_record" "systems_richtman_au_nameservers" {
   zone_id = aws_route53_zone.systems_richtman_au.zone_id
   name    = "${aws_route53_zone.systems_richtman_au.name}."
   type    = "NS"
   ttl     = 172800
-  records = [
-    "${aws_route53_zone.systems_richtman_au.name_servers[0]}",
-    "${aws_route53_zone.systems_richtman_au.name_servers[1]}",
-    "${aws_route53_zone.systems_richtman_au.name_servers[2]}",
-    "${aws_route53_zone.systems_richtman_au.name_servers[3]}",
-  ]
+  records = aws_route53_zone.systems_richtman_au.name_servers
 }
 
 resource "aws_route53_record" "systems_richtman_au_soa" {
@@ -39,11 +33,12 @@ locals {
   }
 }
 
-resource "aws_route53_record" "machines_systems_richtman_au_cname" {
-  for_each = local.systems
-  zone_id  = aws_route53_zone.richtman_au.zone_id
-  name     = "${each.key}.${aws_route53_zone.systems_richtman_au.name}."
-  type     = "AAAA"
-  ttl      = 3600
-  records  = [each.value]
+resource "aws_route53_record" "machines_systems_richtman_au_aaaa" {
+  for_each        = local.systems
+  zone_id         = aws_route53_zone.systems_richtman_au.zone_id
+  name            = "${each.key}.${aws_route53_zone.systems_richtman_au.name}."
+  type            = "AAAA"
+  ttl             = 3600
+  records         = [each.value]
+  allow_overwrite = true
 }
