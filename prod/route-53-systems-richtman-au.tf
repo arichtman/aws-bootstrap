@@ -27,7 +27,7 @@ locals {
     mum            = "2403:580a:e4b1:0:676d:f95:464:26db"
     dr-singh       = "2403:580a:e4b1:0:2580:8617:e287:5fc7"
     patient-zero   = "2403:580a:e4b1:0:8d2f:6b45:c77f:de9d"
-    smol-bat       = "2403:580a:e4b1:0:8d2f:6b45:c77f:de9d"
+    smol-bat       = "2403:580a:e4b1:0:c596:d4ca:578d:622d"
     tweedledee     = "2403:580a:e4b1:0:ed66:b6d1:84a4:b35c"
     tweedledum     = "2403:580a:e4b1:0:2123:3ebd:5d16:67d7"
   }
