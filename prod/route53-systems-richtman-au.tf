@@ -22,14 +22,16 @@ resource "aws_route53_record" "systems_richtman_au_soa" {
 }
 
 locals {
-  systems = {
-    fat-controller = "2403:580a:e4b1:0:aab8:e0ff:fe00:91f0"
-    dr-singh       = "2403:580a:e4b1:0:2580:8617:e287:5fc7"
-    patient-zero   = "2403:580a:e4b1:0:1262:e5ff:fe00:b20d"
-    smol-bat       = "2403:580a:e4b1:0:1262:e5ff:fe02:9b6"
-    tweedledee     = "2403:580a:e4b1:0:ed66:b6d1:84a4:b35c"
-    tweedledum     = "2403:580a:e4b1:0:2123:3ebd:5d16:67d7"
+  prefix = "2403:581e:ab78"
+  eui64 = {
+    fat-controller = "aab8:e0ff:fe00:91f0"
+    dr-singh       = "1262:e5ff:fe00:61a3"
+    patient-zero   = "1262:e5ff:fe00:b20d"
+    smol-bat       = "1262:e5ff:fe02:9b6"
+    tweedledee     = "223:24ff:fea0:decc"
+    tweedledum     = "dacb:8aff:fe5f:9774"
   }
+  systems = { for hostname, eui64 in local.eui64 : hostname => "${local.prefix}:0:${eui64}" }
 }
 
 resource "aws_route53_record" "machines_systems_richtman_au_aaaa" {
