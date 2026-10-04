@@ -1,6 +1,8 @@
 
 # aws-bootstrap
 
+** Moved to Codeberg **
+
 WIP of Terraformed AWS environments in use for personal projects.
 
 ```Bash
